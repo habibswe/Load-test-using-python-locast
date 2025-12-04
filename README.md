@@ -145,3 +145,6 @@ class NewAPI(BaseUser):
 
 ## License
 MIT
+Run command:
+python3 -m locust -f locustfile.py --config locust.conf
+python3 -m locust -f locustfile.py --config locust.conf --headless --run-time 1m

@@ -352,3 +352,6 @@ run-time=2h
 3. Save and run: `run_tests.bat`
 
 **Done!** 🚀
+Run command:
+python3 -m locust -f locustfile.py --config locust.conf
+python3 -m locust -f locustfile.py --config locust.conf --headless --run-time 1m

@@ -10,17 +10,26 @@ def on_test_start(environment, **kwargs):
     print("\n🔐 Performing ONE-TIME login...")
 
     login_payload = {
-        "email": "habib.qtec@gmail.com",
+        "username": "habib.qtec@gmail.com",
         "password": "asdfgh"
     }
 
+    # Use X-API-Token header as required by backend
+    headers = {
+        "X-API-Token": API_KEY,
+        "Content-Type": "application/json"
+    }
+
     resp = requests.post(
-        environment.host + "/api/auth/login/",
-        json=login_payload
+        environment.host + "/api/accounts/sign-in/",
+        json=login_payload,
+        headers=headers
     )
 
+    print(f"📊 Login response status: {resp.status_code}")
     if resp.status_code == 200:
         GLOBAL_TOKEN = resp.json().get("access")
-        print("✅ Global Bearer token saved.")
+        print(f"✅ Global Bearer token saved: {GLOBAL_TOKEN[:20]}..." if GLOBAL_TOKEN else "❌ Token is None!")
     else:
-        print("❌ Login failed:", resp.text)
+        print(f"❌ Login failed with status {resp.status_code}")
+        print(f"Response: {resp.text}")
